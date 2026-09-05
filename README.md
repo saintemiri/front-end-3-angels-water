@@ -14,7 +14,7 @@ Angels Water is a frontend web application, this is UI only (no backend) every s
 
 ## Run it in VS Code
 
-1. Open this folder (`mj-prints-admin`) in VS Code.
+1. Open this folder (`front-end-3-angels-water-master`) in VS Code.
 2. Open a terminal (Terminal → New Terminal) and install dependencies:
    ```
    npm install or cmd /c npm install 
