@@ -23,7 +23,7 @@ Angels Water is a frontend web application, this is UI only (no backend) every s
    ```
    npm run dev or cmd /c npm run dev
    ```
-4. Open the printed URL (usually `http://localhost:5174`) in your browser.
+4. Open the printed URL (usually `http://localhost:5173`) in your browser.
 
 ## Login
 
