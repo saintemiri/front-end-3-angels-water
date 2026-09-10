@@ -1,0 +1,33 @@
+.feature-card {
+  position: relative;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 20px 44px 20px 20px;
+  min-width: 180px;
+  max-width: 220px;
+}
+
+.feature-card__text {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.feature-card__text strong {
+  color: var(--color-primary);
+}
+
+.feature-card__check {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 26px;
+  height: 26px;
+  color: var(--color-primary);
+  background: var(--color-white);
+  border-radius: 50%;
+}
