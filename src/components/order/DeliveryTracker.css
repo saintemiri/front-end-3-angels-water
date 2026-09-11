@@ -1,0 +1,85 @@
+.delivery-tracker {
+  display: flex;
+  list-style: none;
+  margin: 32px 0 0;
+  padding: 0;
+}
+
+.delivery-tracker__step {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+}
+
+.delivery-tracker__connector {
+  position: absolute;
+  top: 15px;
+  right: 50%;
+  width: 100%;
+  height: 2px;
+  background: var(--color-border);
+  z-index: 0;
+}
+
+.delivery-tracker__step--done .delivery-tracker__connector,
+.delivery-tracker__step--active .delivery-tracker__connector {
+  background: var(--color-primary);
+}
+
+.delivery-tracker__icon {
+  position: relative;
+  z-index: 1;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-white);
+  border: 2px solid var(--color-border);
+  color: var(--color-border);
+}
+
+.delivery-tracker__step--done .delivery-tracker__icon {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.delivery-tracker__step--active .delivery-tracker__icon {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: var(--color-white);
+}
+
+.delivery-tracker__label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.delivery-tracker__step--active .delivery-tracker__label {
+  color: var(--color-primary);
+}
+
+.delivery-tracker__step--done .delivery-tracker__label {
+  color: var(--color-text);
+}
+
+.delivery-tracker__time {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 560px) {
+  .delivery-tracker__label {
+    font-size: 10px;
+  }
+  .delivery-tracker__time {
+    display: none;
+  }
+}
