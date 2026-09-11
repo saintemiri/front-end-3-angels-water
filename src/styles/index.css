@@ -1,3 +1,4 @@
+@import "tailwindcss";
 :root {
   --color-bg: #f4f8fd;
   --color-bg-alt: #e9f1fb;
