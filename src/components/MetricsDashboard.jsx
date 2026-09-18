@@ -1,4 +1,6 @@
 import HomeFeed from "./HomeFeed.jsx";
+import SuppliesSection from "./SuppliesSection.jsx";
+import SettingsSection from "./SettingsSection.jsx";
 import React from "react";
 import {
   Home,
@@ -34,7 +36,7 @@ const navItems = [
   { icon: Home, label: "Home Feed" },
   { icon: Package, label: "Inventory" },
   { icon: ShoppingCart, label: "Orders" },
-  { icon: Truck, label: "Suppliers" },
+  { icon: Truck, label: "Supplies" },
   { icon: BarChart2, label: "Analytics" },
   { icon: Settings, label: "Settings" },
 ];
@@ -110,9 +112,9 @@ const detailedMetrics = [
 
 /* ---------- Component ---------- */
 
-export default function MetricsDashboard() {
+export default function MetricsDashboard({ initialView = "Analytics" }) {
   const [range, setRange] = React.useState("Today");
-  const [view, setView] = React.useState("Analytics");
+  const [view, setView] = React.useState(initialView);
 
   return (
     <div className="flex h-screen w-full bg-[#EEF1F6] font-sans text-[#1B2130]">
@@ -182,6 +184,10 @@ export default function MetricsDashboard() {
 
         {view === "Home Feed" ? (
           <HomeFeed />
+        ) : view === "Supplies" ? (
+          <SuppliesSection />
+        ) : view === "Settings" ? (
+          <SettingsSection />
         ) : (
           <div className="px-8 py-6">
             {/* Overview */}
