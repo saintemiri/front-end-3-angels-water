@@ -1,0 +1,40 @@
+.address-step__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.address-step__form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.address-step__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.address-step__save {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.address-step__save input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+@media (max-width: 620px) {
+  .address-step__row {
+    grid-template-columns: 1fr;
+  }
+}

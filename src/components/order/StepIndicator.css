@@ -1,0 +1,52 @@
+.step-indicator {
+  margin-bottom: 32px;
+}
+
+.step-indicator__track {
+  position: relative;
+  height: 4px;
+  width: 100%;
+  background: var(--color-border);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.step-indicator__fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: var(--color-primary);
+  border-radius: 999px;
+  transition: width 0.2s ease;
+}
+
+.step-indicator__labels {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.step-indicator__label {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.step-indicator__label--active {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.step-indicator__label--done {
+  color: var(--color-text);
+}
+
+@media (max-width: 640px) {
+  .step-indicator__label {
+    font-size: 10px;
+  }
+}
