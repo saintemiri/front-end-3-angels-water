@@ -1,6 +1,7 @@
 import HomeFeed from "./HomeFeed.jsx";
 import SuppliesSection from "./SuppliesSection.jsx";
 import SettingsSection from "./SettingsSection.jsx";
+import OrdersSection from "./order/OrdersSection.jsx";
 import React from "react";
 import {
   Home, Package, ShoppingCart, Truck, Users, BarChart2, Settings,
@@ -121,7 +122,7 @@ export default function MetricsDashboard({ initialView = "Analytics" }) {
         ) : view === "Settings"? (
           <SettingsSection />
         ) : view === "Orders"? (
-          <div className="px-8 py-10 text-center"><h2 className="font-semibold">Orders - Coming Soon</h2></div>
+          <OrdersSection />
         ) : (
           <div className="px-8 py-6">
             <div className="mb-4 flex items-center justify-between">
