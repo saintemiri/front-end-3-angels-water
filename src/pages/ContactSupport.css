@@ -1,0 +1,90 @@
+.contact-support-page {
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.contact-support-card {
+  width: 100%;
+  max-width: 520px;
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.contact-support-card h1 {
+  margin-bottom: 12px;
+  font-size: 30px;
+}
+
+.contact-support-card > p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.contact-support-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-support-card label {
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.contact-support-card input,
+.contact-support-card textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.contact-support-card input:focus,
+.contact-support-card textarea:focus {
+  border-color: #0077b6;
+}
+
+.contact-support-card textarea {
+  resize: vertical;
+}
+
+.contact-support-card button {
+  margin-top: 14px;
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  background: #0077b6;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.contact-support-card button:hover {
+  background: #005f8f;
+}
+
+.support-success {
+  padding: 20px;
+  background: #f1f8ff;
+  border-radius: 10px;
+}
+
+.support-success h2 {
+  margin-bottom: 8px;
+}
+
+.support-success p {
+  color: #666;
+  line-height: 1.6;
+}
