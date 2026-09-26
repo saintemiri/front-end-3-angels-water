@@ -15,7 +15,6 @@ import TermsOfService from './pages/TermsOfService.jsx'
 
 import SignUpPage from './pages/Signup.jsx'
 import Login from './pages/Login.jsx'
-import StaffLogin from './pages/StaffLogin.jsx'
 import ForgotPassword from './pages/ForgotPassword.jsx'
 import ContactSupport from './pages/ContactSupport.jsx'
 
@@ -42,7 +41,6 @@ export default function App() {
 
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/staff-login" element={<StaffLogin />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/contact-support" element={<ContactSupport />} />
         </Routes>
