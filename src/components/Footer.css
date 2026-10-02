@@ -1,0 +1,32 @@
+.footer {
+  background: var(--color-navy);
+  color: var(--color-white);
+  padding: 22px 0;
+}
+
+.footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer__address {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.footer__links {
+  display: flex;
+  gap: 28px;
+}
+
+.footer__links a {
+  font-size: 13px;
+  color: #aab8d6;
+}
+
+.footer__links a:hover {
+  color: var(--color-white);
+}

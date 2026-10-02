@@ -1,0 +1,38 @@
+.terms-policy {
+  padding: 45px 20px;
+  background: #f8fafc;
+}
+
+.terms-card {
+  max-width: 850px;
+  margin: auto;
+  padding: 35px 45px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.terms-card h1 {
+  margin: 0 0 6px;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.terms-card .effective {
+  margin-bottom: 25px;
+  font-size: 13px;
+  color: #666;
+}
+
+.terms-card h2 {
+  margin: 24px 0 8px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.terms-card p {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #444;
+}
