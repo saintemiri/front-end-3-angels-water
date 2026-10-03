@@ -3,10 +3,10 @@ import { Search, ChevronLeft, ChevronRight, ListFilter, X } from "lucide-react";
 
 // Replace with a real fetch to your orders API when it's ready.
 const MOCK_ORDERS = [
-  { id: "ORD-001", customer: "gian carlos angels", address: "699 San Roque...", status: "Pending", total: 150, date: "Today, 09:30 AM" },
-  { id: "ORD-002", customer: "james hotson", address: "123 Santo Nino...", status: "Completed", total: 150, date: "Today, 08:14 AM" },
-  { id: "ORD-003", customer: "mark santos Gazo", address: "123 Santo Nino...", status: "Pending", total: 250, date: "Today, 10:34 AM" },
-  { id: "ORD-004", customer: "gian Reyes", address: "123 Santo Nino...", status: "Pending", total: 150, date: "Today, 12:30 PM" },
+  { id: "ORD-001", customer: "Jayvee Satoru", address: "699 San Roque...", status: "Pending", total: 150, date: "Today, 09:30 AM" },
+  { id: "ORD-002", customer: "Ken Cruise", address: "123 Santo Nino...", status: "Completed", total: 150, date: "Today, 08:14 AM" },
+  { id: "ORD-003", customer: "Christina D'arc", address: "123 Santo Nino...", status: "Pending", total: 250, date: "Today, 10:34 AM" },
+  { id: "ORD-004", customer: "Astolfo Gian", address: "123 Santo Nino...", status: "Pending", total: 150, date: "Today, 12:30 PM" },
 ];
 
 const STATUS_FILTERS = ["Pending", "Out for Delivery", "Completed", "Cancelled"];
