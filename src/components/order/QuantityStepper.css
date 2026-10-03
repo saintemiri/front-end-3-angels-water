@@ -1,0 +1,38 @@
+.quantity-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.quantity-stepper__btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  color: var(--color-text);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-stepper__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.quantity-stepper__btn--primary {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.quantity-stepper__value {
+  min-width: 16px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+}

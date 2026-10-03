@@ -1,0 +1,151 @@
+.order-page {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 110px;
+
+  /* Grow to fill <main> so the wave divider always lands on the footer. */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.order-page__inner {
+  padding: 48px 0 0;
+  flex: 1;
+}
+
+.order-page__title {
+  font-size: 30px;
+  font-weight: 800;
+  margin: 0 0 6px;
+  color: var(--color-text);
+}
+
+.order-page__subtitle {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin: 0 0 32px;
+}
+
+.order-page__section-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 16px;
+  color: var(--color-text);
+}
+
+.order-page__card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+}
+
+.order-page__layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 32px;
+  align-items: start;
+}
+
+.order-page__options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.order-page__quantity {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 0;
+}
+
+.order-page__quantity-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.order-page__placeholder-step {
+  background: var(--color-bg-alt);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 32px;
+  margin-bottom: 32px;
+}
+
+.order-page__placeholder-step p {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+.order-page__actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.order-page__main {
+  min-width: 0;
+}
+
+.order-step__lead {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--color-text-muted);
+  margin: -8px 0 20px;
+  max-width: 60ch;
+}
+
+.order-page__form-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0 0;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  background: #fdeced;
+  color: #c2384a;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.order-page__form-error svg {
+  flex-shrink: 0;
+}
+
+.order-page__title:focus {
+  outline: none;
+}
+
+.order-page__back {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+@media (max-width: 880px) {
+  .order-page__layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .order-page__actions {
+    flex-direction: column-reverse;
+  }
+
+  .order-page__actions .btn,
+  .order-page__back {
+    width: 100%;
+  }
+}

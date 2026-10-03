@@ -1,0 +1,124 @@
+.hero {
+  position: relative;
+  background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+  overflow: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+ * Photo layer + scrims. Order matters: the first background-image sits
+ * on top. Reading top to bottom —
+ *   1. left-to-right wash so the headline sits on a calm surface
+ *   2. light haze down from the navbar
+ *   3. fade into the wave divider at the bottom
+ *   4. the photo itself
+ *   5. the original gradient, still visible through the photo's edges
+ */
+.hero--photo {
+  background-image:
+    linear-gradient(
+      100deg,
+      var(--color-bg) 0%,
+      rgba(244, 248, 253, 0.97) 20%,
+      rgba(244, 248, 253, 0.78) 38%,
+      rgba(244, 248, 253, 0.3) 58%,
+      rgba(244, 248, 253, 0) 78%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.72) 0%,
+      rgba(255, 255, 255, 0) 30%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(233, 241, 251, 0) 68%,
+      rgba(233, 241, 251, 0.55) 100%
+    ),
+    var(--hero-photo, none),
+    linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+
+  background-size: cover, cover, cover, contain, cover;
+  background-position:
+    center,
+    center,
+    center,
+    var(--hero-photo-position, center),
+    center;
+  background-repeat: no-repeat;
+}
+
+.hero__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 40px;
+  padding-top: 72px;
+  padding-bottom: 120px;
+  flex: 1;
+}
+
+.hero__title {
+  font-size: 42px;
+  line-height: 1.15;
+  font-weight: 800;
+  margin: 0 0 20px;
+  color: var(--color-text);
+  max-width: 11ch;
+}
+
+.hero__subtitle {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  max-width: 42ch;
+  margin: 0 0 28px;
+}
+
+.hero__features {
+  display: flex;
+  gap: 16px;
+  margin-top: 48px;
+}
+
+.hero__art {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 860px) {
+  .hero__inner {
+    grid-template-columns: 1fr;
+    padding-top: 40px;
+    padding-bottom: 90px;
+    text-align: left;
+  }
+
+  /* On narrow screens the copy sits over the middle of the photo,
+     so swap the side wash for an even one. */
+  .hero--photo {
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(244, 248, 253, 0.95) 0%,
+        rgba(244, 248, 253, 0.82) 55%,
+        rgba(233, 241, 251, 0.9) 100%
+      ),
+      var(--hero-photo, none),
+      linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+    background-size: cover, contain, cover;
+    background-position: center, var(--hero-photo-position, center), center;
+  }
+
+  .hero__art {
+    order: -1;
+    max-width: 240px;
+    margin: 0 auto;
+  }
+
+  .hero__features {
+    flex-wrap: wrap;
+  }
+}
