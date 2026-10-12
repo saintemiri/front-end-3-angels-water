@@ -29,6 +29,13 @@ const reportRows = [
 
 export default function HomeFeed() {
   const [selectedAction, setSelectedAction] = React.useState(null);
+  const [userCreated, setUserCreated] = React.useState(false);
+  const [systemCheckComplete, setSystemCheckComplete] = React.useState(false);
+
+  const handleCreateUser = (event) => {
+    event.preventDefault();
+    setUserCreated(true);
+  };
 
   const handleExportWeeklyMetrics = () => {
     const rows = [
@@ -94,7 +101,138 @@ export default function HomeFeed() {
           </div>
         </div>
 
-        {selectedAction === "Generate Report" ? (
+        {selectedAction === "Add User" ? (
+          <div className="col-span-2 rounded-xl border border-[#E3E7EF] bg-white p-5">
+            <div className="mb-5 flex items-start justify-between">
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.16em] text-[#8890A6]">
+                  Quick Actions
+                </p>
+                <h3 className="mt-1 text-xl font-semibold text-[#1B2130]">
+                  Add User
+                </h3>
+                <p className="mt-1 text-sm text-[#8890A6]">
+                  Create a staff profile.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedAction(null);
+                  setUserCreated(false);
+                }}
+                className="rounded-lg border border-[#E3E7EF] bg-[#F8FAFC] px-3 py-2 text-xs font-medium text-[#1B2130]"
+              >
+                Back
+              </button>
+            </div>
+
+            {userCreated ? (
+              <div className="rounded-lg border border-[#BDE8CE] bg-[#F0FBF4] p-4 text-sm text-[#237A43]" role="status">
+                User added successfully.
+              </div>
+            ) : (
+              <form onSubmit={handleCreateUser} className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <label className="text-xs font-medium text-[#4B5468]">
+                    Full name
+                    <input
+                      required
+                      name="fullName"
+                      autoComplete="name"
+                      placeholder="Enter full name"
+                      className="mt-1.5 w-full rounded-lg border border-[#E3E7EF] bg-white px-3 py-2.5 text-sm text-[#1B2130] outline-none focus:border-[#1755F5]"
+                    />
+                  </label>
+                  <label className="text-xs font-medium text-[#4B5468]">
+                    Email address
+                    <input
+                      required
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      placeholder="name@example.com"
+                      className="mt-1.5 w-full rounded-lg border border-[#E3E7EF] bg-white px-3 py-2.5 text-sm text-[#1B2130] outline-none focus:border-[#1755F5]"
+                    />
+                  </label>
+                  <label className="text-xs font-medium text-[#4B5468]">
+                    Role
+                    <select
+                      name="role"
+                      defaultValue="Staff"
+                      className="mt-1.5 w-full rounded-lg border border-[#E3E7EF] bg-white px-3 py-2.5 text-sm text-[#1B2130] outline-none focus:border-[#1755F5]"
+                    >
+                      <option>Staff</option>
+                      <option>Manager</option>
+                      <option>Administrator</option>
+                    </select>
+                  </label>
+                </div>
+                <div className="flex items-center justify-between border-t border-[#EEF0F4] pt-4">
+                  <p className="text-xs text-[#8890A6]">Changes are not saved to a server.</p>
+                  <button
+                    type="submit"
+                    className="rounded-lg bg-[#1755F5] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#123FC0]"
+                  >
+                    Add User
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        ) : selectedAction === "System Check" ? (
+          <div className="col-span-2 rounded-xl border border-[#E3E7EF] bg-white p-5">
+            <div className="mb-5 flex items-start justify-between">
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.16em] text-[#8890A6]">
+                  Quick Actions
+                </p>
+                <h3 className="mt-1 text-xl font-semibold text-[#1B2130]">
+                  System Check
+                </h3>
+                <p className="mt-1 text-sm text-[#8890A6]">
+                  Review the status of core portal services.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedAction(null);
+                  setSystemCheckComplete(false);
+                }}
+                className="rounded-lg border border-[#E3E7EF] bg-[#F8FAFC] px-3 py-2 text-xs font-medium text-[#1B2130]"
+              >
+                Back
+              </button>
+            </div>
+
+            <div className="mb-5 divide-y divide-[#EEF0F4] rounded-lg border border-[#E3E7EF] px-4">
+              {["Order processing", "Inventory records", "Notifications"].map((service) => (
+                <div key={service} className="flex items-center justify-between py-3">
+                  <span className="text-sm font-medium text-[#3A4256]">{service}</span>
+                  <span className="rounded-full bg-[#EAF8EF] px-2.5 py-1 text-xs font-medium text-[#237A43]">
+                    {systemCheckComplete ? "Checked" : "Ready"}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex items-center justify-between">
+              <p className="text-xs text-[#8890A6]">
+                {systemCheckComplete
+                  ? "System check complete."
+                  : "Run a system check to review service status."}
+              </p>
+              <button
+                type="button"
+                onClick={() => setSystemCheckComplete(true)}
+                className="rounded-lg bg-[#1755F5] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#123FC0]"
+              >
+                Run System Check
+              </button>
+            </div>
+          </div>
+        ) : selectedAction === "Generate Report" ? (
           <div className="col-span-2 rounded-xl border border-[#E3E7EF] bg-white p-5">
             <div className="mb-5 flex items-center justify-between gap-3">
               <div>

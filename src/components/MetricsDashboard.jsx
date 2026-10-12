@@ -5,7 +5,7 @@ import OrdersSection from "./order/OrdersSection.jsx";
 import React from "react";
 import {
   Home, Package, ShoppingCart, Truck, Users, BarChart2, Settings,
-  LifeBuoy, LogOut, Search, Bell, Grid3x3, ArrowUpRight, ArrowDownRight,
+  LifeBuoy, LogOut, Bell, Grid3x3, ArrowUpRight, ArrowDownRight,
   ShieldCheck, Pencil
 } from "lucide-react";
 import {
@@ -44,6 +44,14 @@ const orderDistribution = [
 export default function MetricsDashboard({ initialView = "Analytics" }) {
   const [range, setRange] = React.useState("Today");
   const [view, setView] = React.useState(initialView);
+  const [isAddStockOpen, setIsAddStockOpen] = React.useState(false);
+  const [stockAdded, setStockAdded] = React.useState(false);
+  const [stockItems, setStockItems] = React.useState([
+    { name: "Round Gallon 5gal", category: "Bottle", stock: 120, status: "In Stock" },
+    { name: "Slim Gallon", category: "Bottle", stock: 85, status: "In Stock" },
+    { name: "Water Caps / Seals", category: "Supplies", stock: 12, status: "Low Stock" },
+    { name: "Dispenser Faucet", category: "Accessories", stock: 8, status: "In Stock" },
+  ]);
   const [panel, setPanel] = React.useState(null);
   const [isEditingProfile, setIsEditingProfile] = React.useState(false);
   const [profile, setProfile] = React.useState({
@@ -64,6 +72,40 @@ export default function MetricsDashboard({ initialView = "Analytics" }) {
 
   const handleMarkAllRead = () => {
     setNotifications([]);
+  };
+
+  const handleAddStock = (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const name = String(formData.get("itemName")).trim();
+    const category = String(formData.get("category"));
+    const quantity = Number(formData.get("quantity"));
+
+    setStockItems((items) => {
+      const existingItem = items.find(
+        (item) => item.name.toLowerCase() === name.toLowerCase()
+      );
+
+      if (existingItem) {
+        return items.map((item) =>
+          item === existingItem
+            ? {
+                ...item,
+                stock: item.stock + quantity,
+                status:
+                  item.status === "Low Stock" && item.stock + quantity > 15
+                    ? "In Stock"
+                    : item.status,
+              }
+            : item
+        );
+      }
+
+      return [...items, { name, category, stock: quantity, status: "In Stock" }];
+    });
+    setStockAdded(true);
+    form.reset();
   };
 
   return (
@@ -95,8 +137,6 @@ export default function MetricsDashboard({ initialView = "Analytics" }) {
         <header className="relative flex items-center justify-between border-b border-[#E3E7EF] bg-white px-8 py-4">
           <h1 className="text-[15px] font-semibold">{view}</h1>
           <div className="flex items-center gap-5">
-            <div className="flex items-center gap-2 rounded-lg bg-[#F3F5F9] px-3 py-2 text-sm text-[#8890A6]"><Search size={15} /><span>Search...</span></div>
-
             <button
               type="button"
               onClick={() => setPanel(panel === 'notifications' ? null : 'notifications')}
@@ -230,32 +270,95 @@ export default function MetricsDashboard({ initialView = "Analytics" }) {
           <div className="px-8 py-6">
             <div className="mb-6 flex items-center justify-between">
               <h2 className="text-lg font-semibold">Inventory - 3 Angels Water Station</h2>
-              <button className="rounded-lg bg-[#1755F5] px-4 py-2 text-sm text-white">+ Add Stock</button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsAddStockOpen((open) => !open);
+                  setStockAdded(false);
+                }}
+                className="rounded-lg bg-[#1755F5] px-4 py-2 text-sm font-medium text-white hover:bg-[#123FC0]"
+              >
+                {isAddStockOpen ? "Close" : "+ Add Stock"}
+              </button>
             </div>
+            {isAddStockOpen && (
+              <section className="mb-6 rounded-xl border border-[#E3E7EF] bg-white p-5" aria-labelledby="add-stock-title">
+                <div className="mb-5">
+                  <p className="text-[11px] uppercase tracking-[0.16em] text-[#8890A6]">Inventory</p>
+                  <h3 id="add-stock-title" className="mt-1 text-xl font-semibold text-[#1B2130]">Add Stock</h3>
+                  <p className="mt-1 text-sm text-[#8890A6]">Add quantity to an existing item or create a new stock item.</p>
+                </div>
+                {stockAdded && (
+                  <p className="mb-4 rounded-lg border border-[#BDE8CE] bg-[#F0FBF4] p-3 text-sm text-[#237A43]" role="status">
+                    Stock updated. Changes are not saved to a server.
+                  </p>
+                )}
+                <form onSubmit={handleAddStock} className="grid grid-cols-3 items-end gap-4">
+                  <label className="text-xs font-medium text-[#4B5468]">
+                    Item name
+                    <input
+                      required
+                      name="itemName"
+                      placeholder="e.g. Round Gallon 5gal"
+                      className="mt-1.5 w-full rounded-lg border border-[#E3E7EF] px-3 py-2.5 text-sm text-[#1B2130] outline-none focus:border-[#1755F5]"
+                    />
+                  </label>
+                  <label className="text-xs font-medium text-[#4B5468]">
+                    Category
+                    <select
+                      name="category"
+                      defaultValue="Bottle"
+                      className="mt-1.5 w-full rounded-lg border border-[#E3E7EF] bg-white px-3 py-2.5 text-sm text-[#1B2130] outline-none focus:border-[#1755F5]"
+                    >
+                      <option>Bottle</option>
+                      <option>Supplies</option>
+                      <option>Accessories</option>
+                    </select>
+                  </label>
+                  <label className="text-xs font-medium text-[#4B5468]">
+                    Quantity to add
+                    <input
+                      required
+                      name="quantity"
+                      type="number"
+                      min="1"
+                      step="1"
+                      placeholder="Enter quantity"
+                      className="mt-1.5 w-full rounded-lg border border-[#E3E7EF] px-3 py-2.5 text-sm text-[#1B2130] outline-none focus:border-[#1755F5]"
+                    />
+                  </label>
+                  <div className="col-span-3 flex justify-end border-t border-[#EEF0F4] pt-4">
+                    <button type="submit" className="rounded-lg bg-[#1755F5] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#123FC0]">
+                      Add Stock
+                    </button>
+                  </div>
+                </form>
+              </section>
+            )}
             <div className="mb-6 grid grid-cols-3 gap-4">
-              <div className="rounded-xl border border-[#E3E7EF] bg-white p-4"><p className="text-xs text-[#8890A6]">Total Stock</p><p className="mt-1 text-2xl font-semibold">225</p></div>
-              <div className="rounded-xl border border-[#E3E7EF] bg-white p-4"><p className="text-xs text-[#8890A6]">Low Stock</p><p className="mt-1 text-2xl font-semibold text-[#E14D4D]">1</p></div>
-              <div className="rounded-xl border border-[#E3E7EF] bg-white p-4"><p className="text-xs text-[#8890A6]">Categories</p><p className="mt-1 text-2xl font-semibold">3</p></div>
+              <div className="rounded-xl border border-[#E3E7EF] bg-white p-4"><p className="text-xs text-[#8890A6]">Total Stock</p><p className="mt-1 text-2xl font-semibold">{stockItems.reduce((total, item) => total + item.stock, 0)}</p></div>
+              <div className="rounded-xl border border-[#E3E7EF] bg-white p-4"><p className="text-xs text-[#8890A6]">Low Stock</p><p className="mt-1 text-2xl font-semibold text-[#E14D4D]">{stockItems.filter((item) => item.status === "Low Stock").length}</p></div>
+              <div className="rounded-xl border border-[#E3E7EF] bg-white p-4"><p className="text-xs text-[#8890A6]">Categories</p><p className="mt-1 text-2xl font-semibold">{new Set(stockItems.map((item) => item.category)).size}</p></div>
             </div>
             <div className="rounded-xl border border-[#E3E7EF] bg-white p-5">
               <h3 className="mb-4 text-sm font-semibold">Stock List</h3>
               <table className="w-full text-left text-sm">
                 <thead><tr className="text-[11px] uppercase text-[#8890A6]"><th className="pb-3 font-medium">Item Name</th><th className="pb-3 font-medium">Category</th><th className="pb-3 font-medium">Stock</th><th className="pb-3 font-medium">Status</th><th className="pb-3 font-medium">Action</th></tr></thead>
                 <tbody>
-                  {[
-                    { name: "Round Gallon 5gal", cat: "Bottle", stock: 120, color: "#2FAE60", status: "In Stock" },
-                    { name: "Slim Gallon", cat: "Bottle", stock: 85, color: "#2FAE60", status: "In Stock" },
-                    { name: "Water Caps / Seals", cat: "Supplies", stock: 12, color: "#E14D4D", status: "Low Stock" },
-                    { name: "Dispenser Faucet", cat: "Accessories", stock: 8, color: "#2FAE60", status: "In Stock" },
-                  ].map((row) => (
+                  {stockItems.map((row) => {
+                    const lowStock = row.status === "Low Stock";
+                    const color = lowStock ? "#E14D4D" : "#2FAE60";
+
+                    return (
                     <tr key={row.name} className="border-t border-[#EEF0F4] text-[#3A4256]">
                       <td className="py-3 font-medium">{row.name}</td>
-                      <td className="py-3">{row.cat}</td>
+                      <td className="py-3">{row.category}</td>
                       <td className="py-3">{row.stock}</td>
-                      <td className="py-3"><span className="inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs" style={{ backgroundColor: `${row.color}1A`, color: row.color }}><span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: row.color }} /> {row.status}</span></td>
+                      <td className="py-3"><span className="inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs" style={{ backgroundColor: `${color}1A`, color }}><span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: color }} /> {row.status}</span></td>
                       <td className="py-3"><Pencil size={14} className="text-[#8890A6]" /></td>
                     </tr>
-                  ))}
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
