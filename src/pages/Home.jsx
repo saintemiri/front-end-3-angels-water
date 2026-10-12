@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Hero from '../components/Hero.jsx'
+import './Home.css'
 
 export default function Home() {
   const location = useLocation()
@@ -20,13 +21,13 @@ export default function Home() {
       {showLogoutMessage && (
         <div
           role="status"
-          className="mx-auto mt-4 flex max-w-5xl items-center justify-between gap-4 rounded-lg border border-[#BDE8CE] bg-[#F0FBF4] px-4 py-3 text-sm text-[#237A43]"
+          className="home-logout-toast"
         >
           <span>You have been logged out.</span>
           <button
             type="button"
             onClick={() => setShowLogoutMessage(false)}
-            className="font-semibold hover:underline"
+            className="home-logout-toast__dismiss"
           >
             Dismiss
           </button>

@@ -151,6 +151,13 @@ html[data-theme='dark'] .customer-settings__error {
   color: #ffc1c1;
 }
 
+html[data-theme='dark'] .home-logout-toast {
+  border-color: #285b40;
+  background: #173326;
+  color: #a4e4ba;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.38);
+}
+
 html[data-theme='dark'] .contact-support-page,
 html[data-theme='dark'] .forgot-password-page,
 html[data-theme='dark'] .auth-page,
@@ -317,6 +324,18 @@ html[data-theme='dark'] .admin-quick-action--selected [class*='text-[#1B2130]'] 
 
 html[data-theme='dark'] .admin-quick-action--selected [class*='text-[#8890A6]'] {
   color: #b3c1d5 !important;
+}
+
+html[data-theme='dark'] .admin-quick-action-back {
+  border-color: #3c4b63 !important;
+  background-color: #26354b !important;
+  color: #d4dfef !important;
+}
+
+html[data-theme='dark'] .admin-quick-action-back:hover {
+  border-color: #5b7cae !important;
+  background-color: #30435e !important;
+  color: #fff !important;
 }
 
 html[data-theme='dark'] [class*='text-[#1B2130]'],

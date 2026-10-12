@@ -121,7 +121,7 @@ export default function HomeFeed() {
                   setSelectedAction(null);
                   setUserCreated(false);
                 }}
-                className="rounded-lg border border-[#E3E7EF] bg-[#F8FAFC] px-3 py-2 text-xs font-medium text-[#1B2130]"
+                className="admin-quick-action-back rounded-lg border border-[#E3E7EF] bg-[#F8FAFC] px-3 py-2 text-xs font-medium text-[#1B2130]"
               >
                 Back
               </button>
@@ -200,7 +200,7 @@ export default function HomeFeed() {
                   setSelectedAction(null);
                   setSystemCheckComplete(false);
                 }}
-                className="rounded-lg border border-[#E3E7EF] bg-[#F8FAFC] px-3 py-2 text-xs font-medium text-[#1B2130]"
+                className="admin-quick-action-back rounded-lg border border-[#E3E7EF] bg-[#F8FAFC] px-3 py-2 text-xs font-medium text-[#1B2130]"
               >
                 Back
               </button>
@@ -247,7 +247,7 @@ export default function HomeFeed() {
                 <button
                   type="button"
                   onClick={() => setSelectedAction(null)}
-                  className="inline-flex items-center gap-2 rounded-lg border border-[#E3E7EF] bg-[#F8FAFC] px-3 py-2 text-xs font-medium text-[#1B2130]"
+                  className="admin-quick-action-back inline-flex items-center gap-2 rounded-lg border border-[#E3E7EF] bg-[#F8FAFC] px-3 py-2 text-xs font-medium text-[#1B2130]"
                 >
                   <ArrowLeft size={14} /> Back
                 </button>
