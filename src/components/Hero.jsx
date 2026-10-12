@@ -4,6 +4,7 @@ import WaveDivider from './WaveDivider.jsx'
 import './Hero.css'
 
 import heroPhoto from '../assets/hero-background.jpg'
+import darkHeroPhoto from '../assets/darkwater.png'
 
 const heroPhotoPosition = 'right center'
 
@@ -11,8 +12,9 @@ export default function Hero() {
   const photoStyle = heroPhoto
     ? {
         '--hero-photo': `url(${heroPhoto})`,
-        '--hero-photo-position': heroPhotoPosition,
-      }
+      '--hero-photo-dark': `url(${darkHeroPhoto})`,
+      '--hero-photo-position': heroPhotoPosition,
+    }
     : undefined
 
   return (

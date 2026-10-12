@@ -59,7 +59,7 @@ function SettingsLink({ label, subtitle, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full items-center justify-between rounded-lg text-left hover:bg-[#F7F9FC] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#1755F5]"
+      className="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left transition-colors hover:bg-[#F7F9FC] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#1755F5]"
     >
       <span>
         <span className="block text-sm font-medium text-[#1B2130]">{label}</span>

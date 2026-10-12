@@ -275,21 +275,21 @@ export default function MetricsDashboard({ initialView = "Analytics" }) {
                         />
                       </div>
 
-                      <div className="space-y-2 text-[12px] text-[#4E5D7A]">
-                        <div className="flex items-center justify-between rounded-lg bg-[#F3F6FB] px-2.5 py-2">
+                      <div className="admin-profile-meta space-y-2 text-[12px] text-[#4E5D7A]">
+                        <div className="admin-profile-meta__row flex items-center justify-between rounded-lg bg-[#F3F6FB] px-2.5 py-2">
                           <span>Team</span>
                           <input
                             value={profile.team}
                             onChange={(e) => setProfile((current) => ({ ...current, team: e.target.value }))}
-                            className="w-28 rounded-md border border-[#D9E3F4] bg-white px-2 py-1 text-right text-[12px] font-medium text-[#1B2130] outline-none"
+                            className="admin-profile-meta__input w-28 rounded-md border border-[#D9E3F4] bg-white px-2 py-1 text-right text-[12px] font-medium text-[#1B2130] outline-none"
                           />
                         </div>
-                        <div className="flex items-center justify-between rounded-lg bg-[#F3F6FB] px-2.5 py-2">
+                        <div className="admin-profile-meta__row flex items-center justify-between rounded-lg bg-[#F3F6FB] px-2.5 py-2">
                           <span>Role</span>
                           <input
                             value={profile.role}
                             onChange={(e) => setProfile((current) => ({ ...current, role: e.target.value }))}
-                            className="w-28 rounded-md border border-[#D9E3F4] bg-white px-2 py-1 text-right text-[12px] font-medium text-[#1B2130] outline-none"
+                            className="admin-profile-meta__input w-28 rounded-md border border-[#D9E3F4] bg-white px-2 py-1 text-right text-[12px] font-medium text-[#1B2130] outline-none"
                           />
                         </div>
                       </div>
@@ -311,10 +311,10 @@ export default function MetricsDashboard({ initialView = "Analytics" }) {
                           <p className="text-[11px] text-[#5F6F8C]">{profile.role} • Aura Digital Labs</p>
                         </div>
                       </div>
-                      <div className="mt-3 space-y-2 text-[12px] text-[#4E5D7A]">
-                        <div className="flex items-center justify-between rounded-lg bg-[#F3F6FB] px-2.5 py-2"><span>Team</span><span className="font-medium text-[#1B2130]">{profile.team}</span></div>
-                        <div className="flex items-center justify-between rounded-lg bg-[#F3F6FB] px-2.5 py-2"><span>Role</span><span className="font-medium text-[#1B2130]">{profile.role}</span></div>
-                        <div className="flex items-center justify-between rounded-lg bg-[#F3F6FB] px-2.5 py-2"><span>Status</span><span className="font-medium text-[#2FAE60]">{profile.status}</span></div>
+                      <div className="admin-profile-meta mt-3 space-y-2 text-[12px] text-[#4E5D7A]">
+                        <div className="admin-profile-meta__row flex items-center justify-between rounded-lg bg-[#F3F6FB] px-2.5 py-2"><span>Team</span><span className="admin-profile-meta__value font-medium text-[#1B2130]">{profile.team}</span></div>
+                        <div className="admin-profile-meta__row flex items-center justify-between rounded-lg bg-[#F3F6FB] px-2.5 py-2"><span>Role</span><span className="admin-profile-meta__value font-medium text-[#1B2130]">{profile.role}</span></div>
+                        <div className="admin-profile-meta__row flex items-center justify-between rounded-lg bg-[#F3F6FB] px-2.5 py-2"><span>Status</span><span className="admin-profile-meta__status font-medium text-[#2FAE60]">{profile.status}</span></div>
                       </div>
                     </>
                   )}
