@@ -288,6 +288,37 @@ html[data-theme='dark'] [class*='bg-green-50'] {
   background-color: #243550 !important;
 }
 
+html[data-theme='dark'] .admin-report-metric {
+  border-color: #354158 !important;
+  background-color: #151f30 !important;
+}
+
+html[data-theme='dark'] .admin-report-metric [class*='text-[#1B2130]'] {
+  color: #e5eaf3 !important;
+}
+
+html[data-theme='dark'] .admin-report-metric [class*='text-[#8890A6]'] {
+  color: #a6b1c3 !important;
+}
+
+html[data-theme='dark'] .admin-report-metric [class*='text-[#2FAE60]'] {
+  color: #63d68b !important;
+}
+
+html[data-theme='dark'] .admin-quick-action--selected {
+  border-color: #4b79bd !important;
+  background-color: #263954 !important;
+  box-shadow: inset 3px 0 0 #79aaff;
+}
+
+html[data-theme='dark'] .admin-quick-action--selected [class*='text-[#1B2130]'] {
+  color: #edf3fc !important;
+}
+
+html[data-theme='dark'] .admin-quick-action--selected [class*='text-[#8890A6]'] {
+  color: #b3c1d5 !important;
+}
+
 html[data-theme='dark'] [class*='text-[#1B2130]'],
 html[data-theme='dark'] [class*='text-[#2B3050]'],
 html[data-theme='dark'] [class*='text-[#3A4256]'],

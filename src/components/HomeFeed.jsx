@@ -84,9 +84,9 @@ export default function HomeFeed() {
                   key={title}
                   type="button"
                   onClick={() => setSelectedAction(title)}
-                  className={`flex items-center gap-3 rounded-lg border p-3 text-left transition ${
+                  className={`admin-quick-action flex items-center gap-3 rounded-lg border p-3 text-left transition ${
                     isSelected
-                      ? "border-[#1755F5] bg-[#EEF4FF]"
+                      ? "admin-quick-action--selected border-[#1755F5] bg-[#EEF4FF]"
                       : "border-[#E3E7EF] bg-[#F8FAFC] hover:bg-[#F3F5F9]"
                   }`}
                 >
@@ -263,7 +263,7 @@ export default function HomeFeed() {
 
             <div className="mb-5 grid grid-cols-3 gap-3">
               {reportMetrics.map((metric) => (
-                <div key={metric.label} className="rounded-lg border border-[#E3E7EF] bg-[#F8FAFC] p-3">
+                <div key={metric.label} className="admin-report-metric rounded-lg border border-[#E3E7EF] bg-[#F8FAFC] p-3">
                   <p className="text-[11px] text-[#8890A6]">{metric.label}</p>
                   <p className="mt-2 text-2xl font-semibold text-[#1B2130]">{metric.value}</p>
                   <p className="mt-1 text-[11px] text-[#2FAE60]">{metric.delta}</p>
