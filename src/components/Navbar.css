@@ -17,6 +17,29 @@
   gap: 32px;
 }
 
+.navbar__settings {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.navbar__settings:hover,
+.navbar__settings--active {
+  border-color: #c8d8f2;
+  background: #f1f6ff;
+  color: var(--color-primary);
+}
+
 .navbar__signup {
   background: var(--color-primary);
   color: var(--color-white);
@@ -73,10 +96,26 @@
   .navbar__links {
     gap: 18px;
   }
+
+  .navbar__actions {
+    gap: 12px;
+  }
+
   .navbar__inner {
     flex-wrap: wrap;
     height: auto;
     padding: 14px 20px;
     gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar__settings {
+    width: 38px;
+    padding: 0;
+  }
+
+  .navbar__settings span {
+    display: none;
   }
 }

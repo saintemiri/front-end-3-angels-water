@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import { UserRound } from 'lucide-react'
 import './Navbar.css'
 
 const navLinks = [
@@ -31,6 +32,18 @@ export default function Navbar() {
         </nav>
 
         <div className="navbar__actions">
+          <NavLink
+            to="/account-settings"
+            className={({ isActive }) =>
+              'navbar__settings' + (isActive ? ' navbar__settings--active' : '')
+            }
+            aria-label="Account settings"
+            title="Account settings"
+          >
+            <UserRound size={19} aria-hidden="true" />
+            <span>Settings</span>
+          </NavLink>
+
           <NavLink to="/signup" className="navbar__signup">
             Sign Up
           </NavLink>

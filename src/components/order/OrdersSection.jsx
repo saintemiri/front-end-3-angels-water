@@ -95,11 +95,122 @@ function OrderDetailsModal({ order, onClose }) {
   );
 }
 
+function EditOrderModal({ order, onClose, onSave }) {
+  const [form, setForm] = React.useState({
+    customer: order.customer,
+    address: order.address,
+    status: order.status,
+  });
+
+  React.useEffect(() => {
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [onClose]);
+
+  const handleChange = (field) => (event) => {
+    setForm((current) => ({ ...current, [field]: event.target.value }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onSave({ ...order, ...form });
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4"
+      onClick={onClose}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="edit-order-title"
+        className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="mb-5 flex items-start justify-between">
+          <div>
+            <h2 id="edit-order-title" className="text-lg font-semibold text-[#2B3050]">
+              Edit Order #{order.id}
+            </h2>
+            <p className="text-xs text-[#8890A6]">Update customer and delivery details.</p>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-md p-1 text-[#8890A6] hover:bg-[#F3F5F9]"
+            aria-label="Close edit order"
+          >
+            <X size={18} />
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <label className="block text-sm font-medium text-[#3A4256]">
+            Customer name
+            <input
+              required
+              value={form.customer}
+              onChange={handleChange("customer")}
+              className="mt-1.5 w-full rounded-lg border border-[#E3E7EF] px-3 py-2 text-sm outline-none focus:border-[#1755F5]"
+            />
+          </label>
+          <label className="block text-sm font-medium text-[#3A4256]">
+            Address
+            <textarea
+              required
+              value={form.address}
+              onChange={handleChange("address")}
+              rows={3}
+              className="mt-1.5 w-full rounded-lg border border-[#E3E7EF] px-3 py-2 text-sm outline-none focus:border-[#1755F5]"
+            />
+          </label>
+          <label className="block text-sm font-medium text-[#3A4256]">
+            Order status
+            <select
+              value={form.status}
+              onChange={handleChange("status")}
+              className="mt-1.5 w-full rounded-lg border border-[#E3E7EF] bg-white px-3 py-2 text-sm outline-none focus:border-[#1755F5]"
+            >
+              {STATUS_FILTERS.map((status) => (
+                <option key={status} value={status}>
+                  {status}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <div className="flex justify-end gap-2 pt-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-md border border-[#E3E7EF] px-4 py-2 text-xs font-semibold text-[#6B7383] hover:bg-[#F3F5F9]"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="rounded-md bg-[#1755F5] px-4 py-2 text-xs font-semibold text-white hover:opacity-90"
+            >
+              Save changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
 export default function OrdersSection({ orders = MOCK_ORDERS, totalCount = 24 }) {
+  const [orderList, setOrderList] = React.useState(orders);
   const [query, setQuery] = React.useState("");
   const [activeFilters, setActiveFilters] = React.useState([]);
   const [page, setPage] = React.useState(1);
   const [selectedOrder, setSelectedOrder] = React.useState(null);
+  const [editingOrder, setEditingOrder] = React.useState(null);
 
   const toggleFilter = (status) => {
     setPage(1);
@@ -110,26 +221,30 @@ export default function OrdersSection({ orders = MOCK_ORDERS, totalCount = 24 })
 
   const filteredOrders = React.useMemo(() => {
     const q = query.trim().toLowerCase();
-    return orders.filter((order) => {
+    return orderList.filter((order) => {
       const matchesFilter = activeFilters.length === 0 || activeFilters.includes(order.status);
       const matchesQuery =
         q === "" || order.id.toLowerCase().includes(q) || order.customer.toLowerCase().includes(q);
       return matchesFilter && matchesQuery;
     });
-  }, [orders, activeFilters, query]);
+  }, [orderList, activeFilters, query]);
 
   const pageCount = Math.max(1, Math.ceil(filteredOrders.length / PAGE_SIZE));
   const currentPage = Math.min(page, pageCount);
   const pageStart = (currentPage - 1) * PAGE_SIZE;
   const pageOrders = filteredOrders.slice(pageStart, pageStart + PAGE_SIZE);
 
-  const handleAssign = (order) => {
-    // TODO: wire this up to your assign-rider flow
-    console.log("Assign order", order.id);
-  };
-
   const handleDetails = (order) => {
     setSelectedOrder(order);
+  };
+
+  const handleSaveOrder = (updatedOrder) => {
+    setOrderList((currentOrders) =>
+      currentOrders.map((order) =>
+        order.id === updatedOrder.id ? updatedOrder : order
+      )
+    );
+    setEditingOrder(null);
   };
 
   return (
@@ -200,11 +315,10 @@ export default function OrdersSection({ orders = MOCK_ORDERS, totalCount = 24 })
                       Details
                     </button>
                     <button
-                      onClick={() => handleAssign(order)}
-                      disabled={order.status === "Completed"}
-                      className="rounded-md bg-[#1755F5] px-4 py-1.5 text-xs font-semibold text-white hover:opacity-90 disabled:cursor-not-allowed disabled:bg-[#C7CEDD]"
+                      onClick={() => setEditingOrder(order)}
+                      className="rounded-md bg-[#1755F5] px-4 py-1.5 text-xs font-semibold text-white hover:opacity-90"
                     >
-                      Assign
+                      Edit
                     </button>
                   </div>
                 </td>
@@ -248,6 +362,13 @@ export default function OrdersSection({ orders = MOCK_ORDERS, totalCount = 24 })
 
       {selectedOrder && (
         <OrderDetailsModal order={selectedOrder} onClose={() => setSelectedOrder(null)} />
+      )}
+      {editingOrder && (
+        <EditOrderModal
+          order={editingOrder}
+          onClose={() => setEditingOrder(null)}
+          onSave={handleSaveOrder}
+        />
       )}
     </div>
   );

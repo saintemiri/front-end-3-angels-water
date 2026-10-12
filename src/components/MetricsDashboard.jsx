@@ -3,9 +3,10 @@ import SuppliesSection from "./SuppliesSection.jsx";
 import SettingsSection from "./SettingsSection.jsx";
 import OrdersSection from "./order/OrdersSection.jsx";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Home, Package, ShoppingCart, Truck, Users, BarChart2, Settings,
-  LifeBuoy, LogOut, Bell, Grid3x3, ArrowUpRight, ArrowDownRight,
+  LogOut, Bell, Grid3x3, ArrowUpRight, ArrowDownRight,
   ShieldCheck, Pencil
 } from "lucide-react";
 import {
@@ -21,20 +22,66 @@ const navItems = [
   { icon: Settings, label: "Settings" },
 ];
 
-const statCards = [
-  { icon: Users, label: "Total Active Users Today", value: "60", delta: "+125 vs yesterday", up: true },
-  { icon: BarChart2, label: "Active Sessions", value: "53", delta: "+5% vs yesterday", up: true },
-  { icon: "₱", label: "Revenue", value: "₱1,250", delta: "-10% vs yesterday", up: false },
-  { icon: ShieldCheck, label: "System Health", value: "99.9%", delta: "All systems operational", up: true, neutral: true },
-];
+const statCardsByRange = {
+  Today: [
+    { icon: Users, label: "Total Active Users Today", value: "60", delta: "+125 vs yesterday", up: true },
+    { icon: BarChart2, label: "Active Sessions", value: "53", delta: "+5% vs yesterday", up: true },
+    { icon: "₱", label: "Revenue", value: "₱1,250", delta: "-10% vs yesterday", up: false },
+  ],
+  "This Week": [
+    { icon: Users, label: "Total Active Users This Week", value: "420", delta: "+8% vs last week", up: true },
+    { icon: BarChart2, label: "Active Sessions This Week", value: "371", delta: "+6% vs last week", up: true },
+    { icon: "₱", label: "Weekly Revenue", value: "₱8,450", delta: "+12% vs last week", up: true },
+  ],
+  "This Month": [
+    { icon: Users, label: "Total Active Users This Month", value: "1,620", delta: "+11% vs last month", up: true },
+    { icon: BarChart2, label: "Active Sessions This Month", value: "1,438", delta: "+9% vs last month", up: true },
+    { icon: "₱", label: "Monthly Revenue", value: "₱32,750", delta: "+7% vs last month", up: true },
+  ],
+};
 
-const dailyPerformance = [
-  { day: "01 Jun", actual: 55, target: 70 },
-  { day: "02 Jun", actual: 40, target: 60 },
-  { day: "03 Jun", actual: 78, target: 65 },
-  { day: "04 Jun", actual: 62, target: 72 },
-  { day: "05 Jun", actual: 82, target: 68 },
-];
+const systemHealthCard = {
+  icon: ShieldCheck,
+  label: "System Health",
+  value: "99.9%",
+  delta: "All systems operational",
+  up: true,
+  neutral: true,
+};
+
+const performanceByRange = {
+  Today: {
+    title: "Today's Performance",
+    data: [
+      { period: "9 AM", actual: 12, target: 16 },
+      { period: "11 AM", actual: 18, target: 20 },
+      { period: "1 PM", actual: 15, target: 18 },
+      { period: "3 PM", actual: 24, target: 22 },
+      { period: "5 PM", actual: 10, target: 16 },
+    ],
+  },
+  "This Week": {
+    title: "This Week's Performance",
+    data: [
+      { period: "Mon", actual: 55, target: 70 },
+      { period: "Tue", actual: 40, target: 60 },
+      { period: "Wed", actual: 78, target: 65 },
+      { period: "Thu", actual: 62, target: 72 },
+      { period: "Fri", actual: 82, target: 68 },
+      { period: "Sat", actual: 70, target: 75 },
+      { period: "Sun", actual: 48, target: 60 },
+    ],
+  },
+  "This Month": {
+    title: "This Month's Performance",
+    data: [
+      { period: "Week 1", actual: 320, target: 350 },
+      { period: "Week 2", actual: 285, target: 330 },
+      { period: "Week 3", actual: 390, target: 360 },
+      { period: "Week 4", actual: 345, target: 380 },
+    ],
+  },
+};
 
 const orderDistribution = [
   { name: "Actual", value: 60 },
@@ -42,6 +89,7 @@ const orderDistribution = [
 ];
 
 export default function MetricsDashboard({ initialView = "Analytics" }) {
+  const navigate = useNavigate();
   const [range, setRange] = React.useState("Today");
   const [view, setView] = React.useState(initialView);
   const [isAddStockOpen, setIsAddStockOpen] = React.useState(false);
@@ -128,8 +176,20 @@ export default function MetricsDashboard({ initialView = "Analytics" }) {
           </nav>
         </div>
         <div className="flex flex-col gap-1 border-t border-white/10 px-3 py-4">
-          <button className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-[#AEB6C9] hover:bg-white/5 hover:text-white"><LifeBuoy size={17} /> Support</button>
-          <button className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-[#AEB6C9] hover:bg-white/5 hover:text-white"><LogOut size={17} /> Logout</button>
+          <button
+            type="button"
+            onClick={() => navigate("/")}
+            className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-[#AEB6C9] hover:bg-white/5 hover:text-white"
+          >
+            <Home size={17} /> Customer Portal
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate("/", { state: { loggedOut: true } })}
+            className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-[#AEB6C9] hover:bg-white/5 hover:text-white"
+          >
+            <LogOut size={17} /> Logout
+          </button>
         </div>
       </aside>
 
@@ -375,12 +435,20 @@ export default function MetricsDashboard({ initialView = "Analytics" }) {
               <h2 className="text-lg font-semibold">Overview</h2>
               <div className="flex overflow-hidden rounded-lg border border-[#E3E7EF] bg-white text-xs">
                 {["Today", "This Week", "This Month"].map((r) => (
-                  <button key={r} onClick={() => setRange(r)} className={`px-4 py-2 ${range === r? "bg-[#1755F5] text-white" : "text-[#6B7383]"}`}>{r}</button>
+                  <button
+                    key={r}
+                    type="button"
+                    aria-pressed={range === r}
+                    onClick={() => setRange(r)}
+                    className={`px-4 py-2 ${range === r? "bg-[#1755F5] text-white" : "text-[#6B7383]"}`}
+                  >
+                    {r}
+                  </button>
                 ))}
               </div>
             </div>
             <div className="mb-6 grid grid-cols-4 gap-4">
-              {statCards.map((c) => (
+              {[...statCardsByRange[range], systemHealthCard].map((c) => (
                 <div key={c.label} className="rounded-xl border border-[#E3E7EF] bg-white p-4">
                   <div className="mb-3 flex items-center justify-between"><span className="text-xs text-[#8890A6]">{c.label}</span><span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#F3F5F9] text-[#1755F5]">{typeof c.icon === "string"? c.icon : <c.icon size={15} />}</span></div>
                   <p className="mb-1 text-2xl font-semibold">{c.value}</p>
@@ -389,7 +457,7 @@ export default function MetricsDashboard({ initialView = "Analytics" }) {
               ))}
             </div>
             <div className="mb-6 grid grid-cols-3 gap-4">
-              <div className="col-span-2 rounded-xl border border-[#E3E7EF] bg-white p-5"><h3 className="mb-4 text-sm font-semibold">Daily Performance</h3><ResponsiveContainer width="100%" height={220}><BarChart data={dailyPerformance} barGap={4}><XAxis dataKey="day" axisLine={false} tickLine={false} tick={{ fill: "#8890A6", fontSize: 11 }} /><Bar dataKey="target" fill="#C6D3F7" radius={[3,3,0,0]} /><Bar dataKey="actual" fill="#1755F5" radius={[3,3,0,0]} /></BarChart></ResponsiveContainer></div>
+              <div className="col-span-2 rounded-xl border border-[#E3E7EF] bg-white p-5"><h3 className="mb-4 text-sm font-semibold">{performanceByRange[range].title}</h3><ResponsiveContainer width="100%" height={220}><BarChart data={performanceByRange[range].data} barGap={4}><XAxis dataKey="period" axisLine={false} tickLine={false} tick={{ fill: "#8890A6", fontSize: 11 }} /><Bar dataKey="target" fill="#C6D3F7" radius={[3,3,0,0]} /><Bar dataKey="actual" fill="#1755F5" radius={[3,3,0,0]} /></BarChart></ResponsiveContainer></div>
               <div className="rounded-xl border border-[#E3E7EF] bg-white p-5"><h3 className="mb-2 text-sm font-semibold">Order Distribution</h3><div className="relative flex items-center justify-center"><ResponsiveContainer width="100%" height={190}><PieChart><Pie data={orderDistribution} dataKey="value" innerRadius={55} outerRadius={80} startAngle={90} endAngle={-270} stroke="none"><Cell fill="#1755F5" /><Cell fill="#C6D3F7" /></Pie></PieChart></ResponsiveContainer><div className="pointer-events-none absolute flex flex-col items-center"><span className="text-xl font-semibold">324</span><span className="text-[11px] text-[#8890A6]">Orders</span></div></div></div>
             </div>
           </div>

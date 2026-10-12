@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './Login.css'
 import { UserIcon, LockIcon, EyeIcon, DropIcon } from '../components/AuthIcons.jsx'
 
@@ -55,9 +55,9 @@ export default function StaffLogin() {
           <div className="auth-field">
             <div className="auth-field__row">
               <label htmlFor="staff-password">Password</label>
-              <a href="#" className="auth-field__forgot">
+              <Link to="/forgot-password" className="auth-field__forgot">
                 Forgot Password?
-              </a>
+              </Link>
             </div>
             <div className="auth-field__input">
               <LockIcon />

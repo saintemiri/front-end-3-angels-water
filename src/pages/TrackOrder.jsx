@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import DeliveryTracker from '../components/order/DeliveryTracker.jsx'
 import OrderSummary from '../components/order/OrderSummary.jsx'
 import WaveDivider from '../components/WaveDivider.jsx'
@@ -52,9 +53,9 @@ export default function TrackOrder() {
 
   const afterTotal = order && (
     <>
-      <button type="button" className="order-summary__contact-btn">
+      <Link to="/contact-support" className="order-summary__contact-btn">
         Contact Support
-      </button>
+      </Link>
       <p className="order-summary__note">
         <span className="order-summary__note-icon" aria-hidden="true">
           <InfoIcon />
